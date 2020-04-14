@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from "graphql-tag";
 
 
-const GET_POKEMON_INFO = gql`
+const GET_KMAKE_INFO = gql`
 {
   kmakeObjects(namespace: "default") {
     __typename
@@ -32,7 +32,7 @@ const GET_POKEMON_INFO = gql`
   }
 `
 function App() {
-  const { data, loading, error } = useQuery(GET_POKEMON_INFO);
+  const { data, loading, error } = useQuery(GET_KMAKE_INFO);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
