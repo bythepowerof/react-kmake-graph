@@ -12,12 +12,14 @@
     "applicationinsights": "^1.7.4",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
+    "node-fetch": "^2.6.0",
     "react": "^16.13.1",
     "react-apollo": "^3.1.4",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
   "scripts": {
+    "build-fragment": "node src/schemaQuery.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

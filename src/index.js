@@ -8,12 +8,19 @@ import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
+import introspectionQueryResultData from './fragmentTypes.json';
 
-const cache = new InMemoryCache();
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData
+});
+
+// const cache = new InMemoryCache();
 const link = new HttpLink({
   uri: 'http://localhost:8080/query'
-  // uri: 'https://graphql-pokemon.now.sh/'
 })
+
+const cache = new InMemoryCache({ fragmentMatcher });
 
 const client = new ApolloClient({
   cache,
