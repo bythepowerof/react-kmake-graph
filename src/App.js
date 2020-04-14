@@ -1,25 +1,60 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
+import { useQuery } from '@apollo/react-hooks';
+import gql from "graphql-tag";
+
+
+const GET_POKEMON_INFO = gql`
+{
+  kmakeObjects(namespace: "default") {
+    __typename
+    name
+    namespace
+    status
+    ... on KmakeScheduleRun {
+      kmakename
+      kmakerunname
+      kmakeschedulename
+    }
+    ... on KmakeRun {
+      kmakename
+    }
+    ... on KmakeNowScheduler {
+      monitor
+    }
+    ... on Kmake {
+      variables {
+        key
+        value
+      }
+    }
+  }
+  }
+`
 function App() {
+  const { data, loading, error } = useQuery(GET_POKEMON_INFO);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error</p>;
+
+  console.log(data);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <h1>Kmake</h1>
+      <div className="container">
+        {data && data.kmakeObjects &&
+          data.kmakeObjects.map((kmake, index) => (
+            <div key={index} className="card">
+              <div class="card-body">
+                <h3>{kmake.name}</h3>
+                <p>{kmake.status}</p>
+              </div>
+            </div>
+
+          ))}
+      </div>
+    </React.Fragment>
   );
 }
 
