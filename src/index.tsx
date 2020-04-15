@@ -24,9 +24,6 @@ const cache = new InMemoryCache({ fragmentMatcher });
 
 const client = new ApolloClient({
   cache,
-  fetchOptions: {
-    mode: 'no-cors',
-  },
   link
 })
 
