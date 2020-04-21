@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useQuery } from '@apollo/react-hooks';
 import gql from "graphql-tag";
-import{Kmake, KmakeObject, KmakeScheduleRun} from "./gqlKmake";
+import{Kmake, KmakeObject, KmakeScheduleRun, KmakeRun, KmakeScheduler} from "./gqlKmake";
 
 
 const GET_KMAKE_INFO = gql`
@@ -50,15 +50,15 @@ export function KmakeInventoryList() {
             <tr>
               <th>name</th>
               <th>status</th>
-              <th>class</th>
+              <th>monitor</th>
             </tr>
           </thead>
           <tbody>
-            {data && data.kmakeObjects.map(kmake => (
+            {data && data.kmakeObjects.map((kmake: any) => (
               <tr>
                 <td>{kmake.name}</td>
                 <td>{kmake.status}</td>
-                <td>{kmake.constructor.name}</td>
+                <td>{kmake?.monitor}</td>
               </tr>
             ))}
           </tbody>
